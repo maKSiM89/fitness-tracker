@@ -1,0 +1,28 @@
+<section class="login-form">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="form" (submit)="onSubmit()">
+    <mat-form-field>
+      <input
+        type="email"
+        matInput
+        placeholder="Your email"
+        formControlName="email"
+        required
+        email>
+      <mat-error *ngIf="email.errors?.email">Email is invalid</mat-error>
+      <mat-error *ngIf="email.errors?.required">Email must not be empty</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="password"
+        matInput
+        placeholder="Your password"
+        formControlName="password"
+        required>
+      <mat-hint align="end">{{ password.value?.length }} / 6</mat-hint>
+      <mat-error *ngIf="password.errors?.required">Password must not be empty</mat-error>
+    </mat-form-field>
+    <button *ngIf="!(isLoading$ | async)" type="submit" mat-raised-button color="primary" [disabled]="form.invalid && form.touched">Submit</button>
+
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
+  </form>
+</section>
